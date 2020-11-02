@@ -10,11 +10,13 @@ var engine, world;
 var binSideLeft, binSideRight;
 var binBottom, binImg;
 var ground;
+var arrow, arrowImg;
 
 function preload()
 {
   paperObjectImg = loadImage("papertrash.png");
   binImg = loadImage("dustbingreen.png");
+  arrowImg = loadImage("arrowdown.png");
 }
 
 function setup() {
@@ -41,6 +43,11 @@ function setup() {
    //the ground
    ground = new Ground(625, 743, 1250, 20);
 
+   //the arrow
+   arrow = createSprite(1030, 200, 10, 10);
+   arrow.addImage(arrowImg);
+   arrow.scale = 0.3;
+
    paperObjectImg.scale = 0.5;
 
    World.add(world, paperObject);
@@ -65,6 +72,9 @@ function draw() {
   paperObject.display();
   
   binBottom.display();
+
+  console.log(paperObject.body.position.x);
+  console.log(paperObject.body.position.y);
   drawSprites();
  
 }
@@ -75,5 +85,15 @@ function keyPressed() {
     Matter.Body.applyForce(paperObject.body,paperObject.body.position,{x:157,y:-157});
   
   }
+
+  else if (keyCode === DOWN_ARROW) {
+
+   Matter.Body.setPosition(paperObject.body, { x: 50, y: 506 });
+   //Matter.Body.applyForce(paperObject.body,paperObject.body.position,{x:0,y:0});
+    /*paperObject.body.position.x = 50;
+    paperObject.body.position.y = 506;*/
+  
+  }
 }
+
 
